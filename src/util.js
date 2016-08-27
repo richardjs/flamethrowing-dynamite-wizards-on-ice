@@ -9,4 +9,6 @@ exports.centerOfSquare = function(squarePos){
 	}
 }
 
-
+Array.prototype.remove = function(o){
+	this.splice(this.indexOf(o), 1)
+}

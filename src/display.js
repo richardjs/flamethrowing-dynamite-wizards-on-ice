@@ -17,20 +17,20 @@ class Display {
 		})
 	}
 
-	render(map){
+	render(){
 		this.ctx.fillStyle = 'black'
 		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
 		this.ctx.save()
 		this.ctx.translate(
-			Math.floor(this.canvas.width/2 - this.game.playerPos.x),
-			Math.floor(this.canvas.height/2 - this.game.playerPos.y)
+			Math.floor(this.canvas.width/2 - this.game.localPlayer.pos.x),
+			Math.floor(this.canvas.height/2 - this.game.localPlayer.pos.y)
 		)
 
-		for(var x = 0; x < map.data.length; x++){
-			for(var y = 0; y < map.data[x].length; y++){
+		for(var x = 0; x < this.game.map.data.length; x++){
+			for(var y = 0; y < this.game.map.data[x].length; y++){
 				this.ctx.fillStyle = 'white'
-				if(!map.data[x][y]){
+				if(!this.game.map.data[x][y]){
 					this.ctx.fillRect(
 						x*C.MAP_TILE_SIZE,
 						y*C.MAP_TILE_SIZE,
@@ -41,10 +41,11 @@ class Display {
 			}
 		}
 
-		this.ctx.restore()
+		for(var entity of this.game.entities) {
+			entity.render(this.canvas, this.ctx)
+		}
 
-		this.ctx.fillStyle = 'red'
-		this.ctx.fillRect(this.canvas.width/2 - 10, this.canvas.height/2 - 10, 20, 20)
+		this.ctx.restore()
 	}
 }
 

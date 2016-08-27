@@ -1,3 +1,11 @@
 'use strict'
 
-exports.MAP_TILE_SIZE = 64
+exports.GAME_FPS = 60
+exports.NETWORK_FPS = 60
+
+exports.MAP_TILE_SIZE = 128
+
+exports.TIMER_SKIP_FACTOR = 10
+
+exports.RUINS_WIDTH = 15
+exports.RUINS_HEIGHT = 15

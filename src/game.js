@@ -3,36 +3,33 @@
 var Display = require('./display.js')
 var Map = require('./map.js')
 var Network = require('./network.js')
+var Player = require('./player.js')
+var Input = require('./input.js')
 
 class Game {
 	constructor() {
-		this.display = new Display(this)
 		this.map = new Map(this)
-		this.network = new Network(this)
+
+		this.entities = []
+
+		this.client = false
+		this.display = null
+		this.network = null
+		this.id = null
+		this.localPlayer = null
 	}
 
-	run() {
-		var game = this;
-		var lastTime;
-		function frame(time){
-			requestAnimationFrame(frame)
-			if(lastTime === undefined){
-				lastTime = time
-				return
-			}
-			var delta = time - lastTime
-			lastTime = time
-				
-			if(!game.map.data){
-				return
-			}
-			if(!game.playerPos){
-				return
-			}
+	initClient() {
+		this.client = true
+		this.display = new Display(this)
+		this.network = new Network(this)
+		this.input = new Input(this)
+	}
 
-			game.display.render(game.map)
+	update() {
+		for(var entity of this.entities){
+			entity.update(this)
 		}
-		requestAnimationFrame(frame)
 	}
 }
 

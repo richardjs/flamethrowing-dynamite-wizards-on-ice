@@ -2,13 +2,13 @@
 
 var ROT = require('rot-js')
 
-var RUINS_WIDTH = 75
-var RUINS_HEIGHT = 75
+var C = require('./constants.js')
+
 
 function standard(){
 	var mapData = []
 
-	var map = new ROT.Map.Digger(75, 75)
+	var map = new ROT.Map.Digger(C.RUINS_WIDTH, C.RUINS_HEIGHT)
 	map.create((x, y, wall) => {
 		if(!mapData[x]){
 			mapData[x] = []
