@@ -54,7 +54,10 @@ time.timer(() => {
 
 time.timer(() => {
 	for(var socket of sockets){
-		socket.emit('entities', game.entities)
+		socket.emit('update', {
+			seqnum: socket.seqnum,
+			entities: game.entities
+		})
 	}
 }, 1000/C.NETWORK_FPS)
 

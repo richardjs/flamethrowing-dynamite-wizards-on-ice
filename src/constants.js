@@ -1,7 +1,7 @@
 'use strict'
 
 exports.GAME_FPS = 60
-exports.NETWORK_FPS = 60
+exports.NETWORK_FPS = 20
 
 exports.MAP_TILE_SIZE = 128
 
