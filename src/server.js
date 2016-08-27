@@ -71,7 +71,7 @@ time.timer(() => {
 
 time.timer(() => {
 	for(var socket of sockets){
-		socket.emit('update', {
+		socket.volatile.emit('update', {
 			seqnum: socket.seqnum,
 			entities: game.entities
 		})
