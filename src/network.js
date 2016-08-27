@@ -1,6 +1,7 @@
 'use strict'
 
 var C = require('./constants.js')
+var Goal = require('./goal.js')
 var Player = require('./player.js')
 var time = require('./time.js')
 
@@ -19,11 +20,16 @@ class Network {
 
 		this.socket.on('update', state => {
 			this.game.entities = []
+			this.game.players = []
 			for(var data of state.entities){
 				var entity;
 				switch(data.type){
 					case 'player':
 						entity = new Player()
+						this.game.players.push(entity)
+						break
+					case 'goal':
+						entity = new Goal()
 						break
 				}
 				for(var property in data){
@@ -39,7 +45,6 @@ class Network {
 			while(game.input.queue.length && game.input.queue[0].seqnum <= state.seqnum){
 				game.input.queue.shift()
 			}
-			console.log('playing back ' + game.input.queue.length)
 			for(var input of game.input.queue){
 				game.localPlayer.keys = input.keys
 				game.update()

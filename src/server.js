@@ -7,7 +7,6 @@ var UUID = require('uuid')
 var C = require('./constants.js')
 var Game = require('./game.js')
 var Player = require('./player.js')
-var mapgen = require('./mapgen.js')
 var time = require('./time.js')
 var util = require('./util.js')
 
@@ -19,11 +18,26 @@ app.use('/build', express.static('build'))
 app.use(express.static('static'))
 
 console.log('initializing game...')
-var game = new Game()
-console.log('making map...')
-game.map.data = mapgen.standard()
 
+var game
 var sockets = []
+
+function newPlayer(socket){
+	var playerPos = util.centerOfSquare(game.map.findEmptySquare())
+	socket.player = new Player(socket.id, playerPos)
+	game.entities.push(socket.player)
+	game.players.push(socket.player)
+}
+
+function newGame(){
+	game = new Game()
+	game.initServer()
+	for(var socket of sockets){
+		newPlayer(socket)
+			socket.emit('mapData', game.map.data)
+	}
+}
+newGame()
 
 io.on('connection', socket => {
 	sockets.push(socket)
@@ -31,6 +45,7 @@ io.on('connection', socket => {
 		console.log('disconnect ' + socket.id)
 		sockets.remove(socket)
 		game.entities.remove(socket.player)
+		game.players.remove(socket.player)
 	})
 
 	socket.on('input', state => {
@@ -43,13 +58,14 @@ io.on('connection', socket => {
 	socket.emit('id', socket.id)
 	socket.emit('mapData', game.map.data)
 
-	var playerPos = util.centerOfSquare(game.map.findEmptySquare())
-	socket.player = new Player(socket.id, playerPos)
-	game.entities.push(socket.player)
+	newPlayer(socket)
 })
 
 time.timer(() => {
 	game.update()
+	if(game.winner){
+		newGame()
+	}
 }, 1000/C.GAME_FPS)
 
 time.timer(() => {

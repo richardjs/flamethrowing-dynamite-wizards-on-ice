@@ -7,7 +7,8 @@ exports.MAP_TILE_SIZE = 128
 
 exports.TIMER_SKIP_FACTOR = 10
 
-exports.RUINS_WIDTH = 15
-exports.RUINS_HEIGHT = 15
+exports.RUINS_WIDTH = 20
+exports.RUINS_HEIGHT = 20
 
 exports.PLAYER_SPEED = 5
+exports.PICKUP_THRESHOLD = 10
