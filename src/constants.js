@@ -11,7 +11,8 @@ exports.RUINS_WIDTH = 20
 exports.RUINS_HEIGHT = 20
 
 exports.PLAYER_SIZE = 26
-exports.PLAYER_SPEED = 5
+exports.PLAYER_ACCELERATION = .3
+exports.PLAYER_MAX_SPEED = 6.5
 exports.PICKUP_THRESHOLD = 10
 
 exports.FLAME_SIZE = 8
@@ -22,4 +23,4 @@ exports.FLAME_SPREAD = Math.PI/6
 exports.FLAME_DELAY = 1000/50
 exports.FLAME_NUM = 4
 
-exports.INTERPOLATION_FRAMES = 3
+exports.INTERPOLATION_FRAMES = 1
