@@ -60,8 +60,6 @@ class Player {
 			this.pos.x -= C.PLAYER_SPEED
 			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.PLAYER_SIZE/2
 		}
-
-		this.keys = {}
 	}
 
 	render(game, canvas, ctx) {
