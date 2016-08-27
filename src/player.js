@@ -30,22 +30,26 @@ class Player {
 		if(this.keys.down){
 			this.dy += C.PLAYER_ACCELERATION
 		}
-		if(!this.keys.up && !this.keys.down){
-			//this.dy -= C.PLAYER_ACCELERATION
-		}
 		if(this.keys.left){
 			this.dx -= C.PLAYER_ACCELERATION
 		}
 		if(this.keys.right){
 			this.dx += C.PLAYER_ACCELERATION
 		}
-		if(!this.keys.left && !this.keys.right){
-			if(this.dx > 0){
-				//this.dx -= C.PLAYER_ACCELERATION
-				if(this.dx < 0){
-					//this.dx = 0
-				}
+	
+		if(this.flameTimer > 0){
+			this.flameTimer -= 1000/C.GAME_FPS
+		}
+		if(this.keys.fire && !game.client && this.flameTimer <= 0){
+			for(var i = 0; i < C.FLAME_NUM; i++){
+				game.entities.push(new Flame(
+					this.pos,
+					this.angle + (Math.random()*C.FLAME_SPREAD - C.FLAME_SPREAD/2)
+				))
 			}
+			this.flameTimer = C.FLAME_DELAY
+			this.dx -= Math.cos(this.angle) * C.FLAME_KNOCKBACK
+			this.dy -= Math.sin(this.angle) * C.FLAME_KNOCKBACK
 		}
 
 		var speed = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2))
@@ -87,19 +91,6 @@ class Player {
 			this.pos.x -= this.dx
 			this.dx = 0
 			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.PLAYER_SIZE/2
-		}
-	
-		if(this.flameTimer > 0){
-			this.flameTimer -= 1000/C.GAME_FPS
-		}
-		if(this.keys.fire && !game.client && this.flameTimer <= 0){
-			for(var i = 0; i < C.FLAME_NUM; i++){
-				game.entities.push(new Flame(
-					this.pos,
-					this.angle + (Math.random()*C.FLAME_SPREAD - C.FLAME_SPREAD/2)
-				))
-			}
-			this.flameTimer = C.FLAME_DELAY
 		}
 	}
 
