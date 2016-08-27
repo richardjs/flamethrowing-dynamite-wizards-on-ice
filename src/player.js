@@ -11,6 +11,8 @@ class Player {
 
 		this.keys = {}
 		this.angle = 0
+
+		this.flameTimer = 0
 	}
 
 	update(game) {
@@ -62,11 +64,17 @@ class Player {
 			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.PLAYER_SIZE/2
 		}
 	
-		if(this.keys.fire && !game.client){
-			game.entities.push(new Flame(
-				this.pos,
-				this.angle + (Math.random()*C.FLAME_SPREAD - C.FLAME_SPREAD/2)
-			))
+		if(this.flameTimer > 0){
+			this.flameTimer -= 1000/C.GAME_FPS
+		}
+		if(this.keys.fire && !game.client && this.flameTimer <= 0){
+			for(var i = 0; i < C.FLAME_NUM; i++){
+				game.entities.push(new Flame(
+					this.pos,
+					this.angle + (Math.random()*C.FLAME_SPREAD - C.FLAME_SPREAD/2)
+				))
+			}
+			this.flameTimer = C.FLAME_DELAY
 		}
 	}
 

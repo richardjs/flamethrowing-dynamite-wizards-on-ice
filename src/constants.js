@@ -14,6 +14,9 @@ exports.PLAYER_SIZE = 26
 exports.PLAYER_SPEED = 5
 exports.PICKUP_THRESHOLD = 10
 
-exports.FLAME_SPEED = 10
+exports.FLAME_MIN_SPEED = 5
+exports.FLAME_MAX_SPEED = 15
 exports.FLAME_TTL = 500
-exports.FLAME_SPREAD = Math.PI/8
+exports.FLAME_SPREAD = Math.PI/6
+exports.FLAME_DELAY = 1000/50
+exports.FLAME_NUM = 4

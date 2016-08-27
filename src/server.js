@@ -67,7 +67,6 @@ time.timer(() => {
 	if(game.winner){
 		newGame()
 	}
-	console.log(game.entities.length)
 }, 1000/C.GAME_FPS)
 
 time.timer(() => {

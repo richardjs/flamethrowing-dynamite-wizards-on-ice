@@ -12,8 +12,9 @@ class Flame {
 			}
 		}
 		this.angle = angle
-		this.dx = Math.cos(angle) * C.FLAME_SPEED
-		this.dy = Math.sin(angle) * C.FLAME_SPEED
+		var speed = C.FLAME_MIN_SPEED + Math.random()*(C.FLAME_MAX_SPEED - C.FLAME_MIN_SPEED)
+		this.dx = Math.cos(angle) * speed
+		this.dy = Math.sin(angle) * speed
 		this.ttl = C.FLAME_TTL
 	}
 
