@@ -1,5 +1,6 @@
 'use strict'
 
+var C = require('./constants.js')
 var Display = require('./display.js')
 var Goal = require('./goal.js')
 var Input = require('./input.js')
@@ -16,6 +17,8 @@ class Game {
 		this.entities = []
 		this.players = []
 
+		this.numGoals = 0
+
 		this.client = false
 		this.display = null
 		this.network = null
@@ -27,7 +30,10 @@ class Game {
 		console.log('making map...')
 		this.map.data = mapgen.standard(this.players.length)
 
-		this.entities.push(new Goal(util.centerOfSquare(this.map.findEmptySquare())))
+		this.numGoals = C.PICKUP_NUM * Math.max(this.players.length, 2) * C.PICKUP_NUM_PLAYERS_FACTOR
+		for(var i = 0; i < this.numGoals; i++){
+			this.entities.push(new Goal(util.centerOfSquare(this.map.findEmptySquare())))
+		}
 	}
 
 	initClient() {

@@ -2,6 +2,7 @@
 
 var C = require('./constants.js')
 var Flame = require('./flame.js')
+var Goal = require('./goal.js')
 
 class Player {
 	constructor(id, pos) {
@@ -12,15 +13,22 @@ class Player {
 		this.dy = 0
 
 		this.hp = C.PLAYER_HP
+		this.goals = 0
 
 		this.keys = {}
 		this.angle = 0
 
 		this.flameTimer = 0
 		this.recoverTimer = 0
+
+		this.dead = false
 	}
 
 	update(game) {
+		if(this.dead){
+			return
+		}
+
 		var mapData = game.map.data
 		var mapLeft
 		var mapRight
@@ -119,6 +127,9 @@ class Player {
 			C.PLAYER_SIZE/3
 		)
 		ctx.fillStyle = 'red'
+		if(this.dead){
+			ctx.fillStyle = 'black'
+		}
 		ctx.fillRect(
 			-C.PLAYER_SIZE/2,
 			-C.PLAYER_SIZE/2,
@@ -130,6 +141,26 @@ class Player {
 
 	hit() {
 		this.hp--
+	}
+
+	die(game){
+		this.dead = true
+		this.dx = 0
+		this.dy = 0
+		if(!game.client){
+			console.log('dropping crystals')
+			for(var i = 0; i < this.goals; i++){
+				do{
+					var x = Math.random() * C.PICKUP_SCATTER*2 - C.PICKUP_SCATTER + this.pos.x
+					var y = Math.random() * C.PICKUP_SCATTER*2 - C.PICKUP_SCATTER + this.pos.y
+					console.log(Math.floor(x/C.MAP_TILE_SIZE),Math.floor(y/C.MAP_TILE_SIZE))
+				}while(
+					game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)]
+				)
+				console.log(x, y)
+				game.entities.push(new Goal({x: x, y: y}))
+			}
+		}
 	}
 }
 

@@ -12,10 +12,8 @@ class Goal {
 		for(var player of game.players){
 			if(Math.abs(player.pos.x - this.pos.x) < C.PICKUP_THRESHOLD
 					&& Math.abs(player.pos.y - this.pos.y) < C.PICKUP_THRESHOLD){
-				console.log('a winner is you!')
-				if(!game.winner){
-					game.winner = player.id
-				}
+				player.goals += 1
+				game.entities.remove(this)
 			}
 		}
 	}

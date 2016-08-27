@@ -64,14 +64,15 @@ io.on('connection', socket => {
 
 time.timer(() => {
 	game.update()
-	if(game.winner){
-		newGame()
-	}
 	for(var socket of sockets){
 		if(socket.player.hp <= 0){
+			socket.player.die(game)
 			game.entities.remove(socket.player)
 			game.players.remove(socket.player)
 			newPlayer(socket)
+		}
+		if(socket.player.goals == game.numGoals){
+			newGame()
 		}
 	}
 }, 1000/C.GAME_FPS)
