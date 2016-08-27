@@ -9,3 +9,5 @@ exports.TIMER_SKIP_FACTOR = 10
 
 exports.RUINS_WIDTH = 15
 exports.RUINS_HEIGHT = 15
+
+exports.PLAYER_SPEED = 5
