@@ -5,7 +5,7 @@ var ROT = require('rot-js')
 var RUINS_WIDTH = 75
 var RUINS_HEIGHT = 75
 
-function makeMap(){
+function standard(){
 	var mapData = []
 
 	var map = new ROT.Map.Digger(75, 75)
@@ -18,4 +18,4 @@ function makeMap(){
 	return mapData
 }
 
-exports.makeMap = makeMap
+exports.standard = standard

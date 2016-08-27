@@ -3,7 +3,9 @@
 var express = require('express')
 var http = require('http')
 
-var map = require('./mapgen.js')
+var Map = require('./map.js')
+var mapgen = require('./mapgen.js')
+var util = require('./util.js')
 
 var app = express()
 var server = http.createServer(app)
@@ -13,10 +15,14 @@ app.use('/build', express.static('build'))
 app.use(express.static('static'))
 
 console.log('making map...')
-var mapData = map.makeMap()
+var map = new Map()
+map.data = mapgen.standard()
 
 io.on('connection', socket => {
-	socket.emit('mapData', mapData)
+	console.log('connect')
+	socket.emit('mapData', map.data)
+	var playerPos = util.centerOfSquare(map.findEmptySquare())
+	socket.emit('playerPos', playerPos)
 })
 
 server.listen(5050, () => {

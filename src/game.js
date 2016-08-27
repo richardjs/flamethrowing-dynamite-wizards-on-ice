@@ -26,6 +26,9 @@ class Game {
 			if(!game.map.data){
 				return
 			}
+			if(!game.playerPos){
+				return
+			}
 
 			game.display.render(game.map)
 		}
