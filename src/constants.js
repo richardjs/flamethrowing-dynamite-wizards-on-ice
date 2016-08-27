@@ -21,3 +21,5 @@ exports.FLAME_TTL = 500
 exports.FLAME_SPREAD = Math.PI/6
 exports.FLAME_DELAY = 1000/50
 exports.FLAME_NUM = 4
+
+exports.INTERPOLATION_FRAMES = 3

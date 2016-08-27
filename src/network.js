@@ -6,6 +6,8 @@ var Goal = require('./goal.js')
 var Player = require('./player.js')
 var time = require('./time.js')
 
+var interpolationQueues = {}
+
 class Network {
 	constructor(game) {
 		this.game = game
@@ -39,6 +41,25 @@ class Network {
 				for(var property in data){
 					entity[property] = data[property]
 				}
+
+				if(entity.id){
+					if(!interpolationQueues[entity.id]){
+						interpolationQueues[entity.id] = []
+					}
+					interpolationQueues[entity.id].push(entity.pos)
+					while(interpolationQueues[entity.id].length > C.INTERPOLATION_FRAMES){
+						interpolationQueues[entity.id].shift()
+					}
+					var interpolatedPos = {x: 0, y: 0}
+					for(var pos of interpolationQueues[entity.id]){
+						interpolatedPos.x += pos.x
+						interpolatedPos.y += pos.y
+					}
+					interpolatedPos.x /= interpolationQueues[entity.id].length
+					interpolatedPos.y /= interpolationQueues[entity.id].length
+					entity.pos = interpolatedPos
+				}
+
 				this.game.entities.push(entity)
 
 				if(entity.id === this.game.id){
