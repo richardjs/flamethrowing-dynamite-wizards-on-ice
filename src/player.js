@@ -24,8 +24,6 @@ class Player {
 		if(this.keys.right){
 			this.pos.x += C.PLAYER_SPEED
 		}
-
-		this.keys = {}
 	}
 
 	render(canvas, ctx){
