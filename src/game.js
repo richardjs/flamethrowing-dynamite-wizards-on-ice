@@ -25,7 +25,7 @@ class Game {
 
 	initServer() {
 		console.log('making map...')
-		this.map.data = mapgen.standard()
+		this.map.data = mapgen.standard(this.players.length)
 
 		this.entities.push(new Goal(util.centerOfSquare(this.map.findEmptySquare())))
 	}
