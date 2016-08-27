@@ -13,9 +13,12 @@ time.timer(() => {
 
 	var inputState = {
 		seqnum: game.input.seqnum++,
-		keys: game.input.keys
+		keys: game.input.keys,
+		angle: game.input.angle
 	}
 	game.input.queue.push(inputState)
+	game.localPlayer.keys = inputState.keys
+	game.localPlayer.angle = inputState.angle
 	game.network.socket.emit('input', inputState)
 	
 	game.update()

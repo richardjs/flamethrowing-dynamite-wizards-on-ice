@@ -9,6 +9,7 @@ class Player {
 		this.pos = pos
 
 		this.keys = {}
+		this.angle = 0
 	}
 
 	update(game) {
@@ -61,14 +62,19 @@ class Player {
 		}
 	}
 
-	render(canvas, ctx){
+	render(game, canvas, ctx) {
+		ctx.save()
+		ctx.translate(this.pos.x, this.pos.y)
+		ctx.rotate(this.angle)
+
 		ctx.fillStyle = 'red'
 		ctx.fillRect(
-			this.pos.x - C.PLAYER_SIZE/2,
-			this.pos.y - C.PLAYER_SIZE/2,
+			-C.PLAYER_SIZE/2,
+			-C.PLAYER_SIZE/2,
 			C.PLAYER_SIZE,
 			C.PLAYER_SIZE
 		)
+		ctx.restore()
 	}
 }
 

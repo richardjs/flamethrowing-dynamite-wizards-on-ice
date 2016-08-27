@@ -51,6 +51,7 @@ io.on('connection', socket => {
 	socket.on('input', state => {
 		socket.seqnum = state.seqnum
 		socket.player.keys = state.keys
+		socket.player.angle = state.angle
 	})
 
 	socket.id = UUID.v4()

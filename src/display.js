@@ -42,7 +42,7 @@ class Display {
 		}
 
 		for(var entity of this.game.entities) {
-			entity.render(this.canvas, this.ctx)
+			entity.render(this.game, this.canvas, this.ctx)
 		}
 
 		this.ctx.restore()

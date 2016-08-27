@@ -11,6 +11,7 @@ class Input {
 	constructor(game) {
 		this.game = game
 		this.keys = {}
+		this.angle = 0
 		this.queue = []
 		this.seqnum = 0
 
@@ -21,6 +22,12 @@ class Input {
 		document.body.addEventListener('keyup', event => {
 			if(!INPUT_MAP[event.which]) return
 			this.keys[INPUT_MAP[event.which]] = false
+		})
+		document.body.addEventListener('mousemove', event => {
+			this.angle = Math.atan2(
+				event.pageY - window.innerHeight/2,
+				event.pageX - window.innerWidth/2
+			)
 		})
 	}
 }
