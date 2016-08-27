@@ -19,19 +19,58 @@ class Flame {
 	}
 
 	update(game) {
-		this.pos.x += this.dx
-		this.pos.y += this.dy
 		for(var player of game.players){
 		}
+
 		this.ttl -= 1000/C.GAME_FPS
 		if(this.ttl <= 0){
 			game.entities.remove(this)
+		}
+
+		var mapData = game.map.data
+		var mapLeft, mapRight, mapTop, mapBottom
+
+		this.pos.y += this.dy
+		mapLeft = Math.floor((this.pos.x - C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+		mapRight = Math.floor((this.pos.x - 1 + C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+		mapTop = Math.floor((this.pos.y - C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+		mapBottom = Math.floor((this.pos.y - 1 + C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+
+		if(mapData[mapLeft][mapTop] || mapData[mapRight][mapTop]){
+			this.pos.y -= this.dy
+			this.pos.y = Math.floor(this.pos.y/C.MAP_TILE_SIZE)*C.MAP_TILE_SIZE + C.FLAME_SIZE/2
+			this.dy *= -1
+		}else if(mapData[mapLeft][mapBottom] || mapData[mapRight][mapBottom]){
+			this.pos.y -= this.dy
+			this.pos.y = (Math.floor(this.pos.y/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.FLAME_SIZE/2
+			this.dy  *= -1
+		}
+
+		this.pos.x += this.dx
+		mapLeft = Math.floor((this.pos.x - C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+		mapRight = Math.floor((this.pos.x - 1 + C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+		mapTop = Math.floor((this.pos.y - C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+		mapBottom = Math.floor((this.pos.y - 1 + C.FLAME_SIZE/2)/C.MAP_TILE_SIZE)
+
+		if(mapData[mapLeft][mapTop] || mapData[mapLeft][mapBottom]){
+			this.pos.x -= this.dx
+			this.pos.x = Math.floor(this.pos.x/C.MAP_TILE_SIZE)*C.MAP_TILE_SIZE + C.FLAME_SIZE/2 + 1
+			this.dx *= -1
+		}else if(mapData[mapRight][mapTop] || mapData[mapRight][mapBottom]){
+			this.pos.x -= this.dx
+			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.FLAME_SIZE/2
+			this.dx *= -1
 		}
 	}
 
 	render(game, canvas, ctx) {
 		ctx.fillStyle = '#FE642E'
-		ctx.fillRect(this.pos.x - 5, this.pos.y - 5, 10, 10)
+		ctx.fillRect(
+			this.pos.x - C.FLAME_SIZE/2,
+			this.pos.y - C.FLAME_SIZE/2,
+			C.FLAME_SIZE,
+			C.FLAME_SIZE
+		)
 	}
 }
 

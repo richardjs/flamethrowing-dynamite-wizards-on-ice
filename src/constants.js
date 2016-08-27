@@ -14,6 +14,7 @@ exports.PLAYER_SIZE = 26
 exports.PLAYER_SPEED = 5
 exports.PICKUP_THRESHOLD = 10
 
+exports.FLAME_SIZE = 8
 exports.FLAME_MIN_SPEED = 5
 exports.FLAME_MAX_SPEED = 15
 exports.FLAME_TTL = 500
