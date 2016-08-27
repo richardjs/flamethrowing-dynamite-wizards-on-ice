@@ -11,10 +11,13 @@ class Player {
 		this.dx = 0
 		this.dy = 0
 
+		this.hp = C.PLAYER_HP
+
 		this.keys = {}
 		this.angle = 0
 
 		this.flameTimer = 0
+		this.recoverTimer = 0
 	}
 
 	update(game) {
@@ -43,6 +46,7 @@ class Player {
 		if(this.keys.fire && !game.client && this.flameTimer <= 0){
 			for(var i = 0; i < C.FLAME_NUM; i++){
 				game.entities.push(new Flame(
+					this.id,
 					this.pos,
 					this.angle + (Math.random()*C.FLAME_SPREAD - C.FLAME_SPREAD/2)
 				))
@@ -92,6 +96,14 @@ class Player {
 			this.dx = 0
 			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.PLAYER_SIZE/2
 		}
+
+		if(this.recoverTimer > 0){
+			this.recoverTimer -= 1000/C.GAME_FPS
+		}
+		if(this.recoverTimer <= 0 && this.hp < C.PLAYER_HP){
+			this.hp++
+			this.recoverTimer += C.PLAYER_HP_RECOVER_TIME
+		}
 	}
 
 	render(game, canvas, ctx) {
@@ -114,6 +126,10 @@ class Player {
 			C.PLAYER_SIZE
 		)
 		ctx.restore()
+	}
+
+	hit() {
+		this.hp--
 	}
 }
 

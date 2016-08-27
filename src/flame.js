@@ -3,7 +3,8 @@
 var C = require('./constants.js')
 
 class Flame {
-	constructor(pos, angle) {
+	constructor(shooterID, pos, angle) {
+		this.shooterID = shooterID
 		this.type = 'flame'
 		if(pos){
 			this.pos = {
@@ -19,9 +20,6 @@ class Flame {
 	}
 
 	update(game) {
-		for(var player of game.players){
-		}
-
 		this.ttl -= 1000/C.GAME_FPS
 		if(this.ttl <= 0){
 			game.entities.remove(this)
@@ -60,6 +58,17 @@ class Flame {
 			this.pos.x -= this.dx
 			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.FLAME_SIZE/2
 			this.dx *= -1
+		}
+
+		for(var player of game.players){
+			if(player.id === this.shooterID){
+				continue
+			}
+			if(Math.abs(player.pos.x - this.pos.x) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2
+					&& Math.abs(player.pos.y - this.pos.y) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2){
+				player.hit()
+				game.entities.remove(this)
+			}
 		}
 	}
 

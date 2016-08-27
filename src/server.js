@@ -67,6 +67,13 @@ time.timer(() => {
 	if(game.winner){
 		newGame()
 	}
+	for(var socket of sockets){
+		if(socket.player.hp <= 0){
+			game.entities.remove(socket.player)
+			game.players.remove(socket.player)
+			newPlayer(socket)
+		}
+	}
 }, 1000/C.GAME_FPS)
 
 time.timer(() => {
