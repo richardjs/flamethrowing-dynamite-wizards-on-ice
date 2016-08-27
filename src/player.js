@@ -1,6 +1,7 @@
 'use strict'
 
 var C = require('./constants.js')
+var Flame = require('./flame.js')
 
 class Player {
 	constructor(id, pos) {
@@ -59,6 +60,13 @@ class Player {
 		if(mapData[mapRight][mapTop] || mapData[mapRight][mapBottom]){
 			this.pos.x -= C.PLAYER_SPEED
 			this.pos.x = (Math.floor(this.pos.x/C.MAP_TILE_SIZE)+1)*C.MAP_TILE_SIZE - C.PLAYER_SIZE/2
+		}
+	
+		if(this.keys.fire && !game.client){
+			game.entities.push(new Flame(
+				this.pos,
+				this.angle + (Math.random()*C.FLAME_SPREAD - C.FLAME_SPREAD/2)
+			))
 		}
 	}
 

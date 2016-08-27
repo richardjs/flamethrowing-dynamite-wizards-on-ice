@@ -29,6 +29,12 @@ class Input {
 				event.pageX - window.innerWidth/2
 			)
 		})
+		document.body.addEventListener('mousedown', event => {
+			this.keys.fire = true
+		})
+		document.body.addEventListener('mouseup', event => {
+			this.keys.fire = false
+		})
 	}
 }
 

@@ -13,3 +13,7 @@ exports.RUINS_HEIGHT = 20
 exports.PLAYER_SIZE = 26
 exports.PLAYER_SPEED = 5
 exports.PICKUP_THRESHOLD = 10
+
+exports.FLAME_SPEED = 10
+exports.FLAME_TTL = 500
+exports.FLAME_SPREAD = Math.PI/8
