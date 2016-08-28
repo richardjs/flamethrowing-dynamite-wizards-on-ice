@@ -70,7 +70,7 @@ class Flame {
 		}
 		if(this.collideTimer <= 0){
 			for(var player of game.players){
-				if(player.id === this.shooterID){
+				if(player.id === this.shooterID || player.dead){
 					continue
 				}
 				if(Math.abs(player.pos.x - this.pos.x) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2

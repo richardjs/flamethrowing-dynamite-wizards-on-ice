@@ -101,13 +101,15 @@ time.timer(() => {
 	game.update()
 
 	for(var socket of sockets){
-		if(socket.player.hp <= 0){
+		if(socket.player.hp <= 0 && !socket.player.dead){
 			socket.player.die(game)
-			var name = socket.player.name
-			game.entities.remove(socket.player)
-			game.players.remove(socket.player)
-			newPlayer(socket)
-			socket.player.name = name
+			setTimeout(() => {
+				var name = socket.player.name
+				game.entities.remove(socket.player)
+				game.players.remove(socket.player)
+				newPlayer(socket)
+				socket.player.name = name
+			}, C.RESPAWN)
 			continue
 		}
 		if(socket.player.goals === game.numGoals && !game.winner){

@@ -49,3 +49,5 @@ exports.INTERPOLATION_FRAMES = 1
 
 exports.OCCLUSION_ALPHA = 1
 exports.OCCLUSION_COLOR = '#bde'
+
+exports.RESPAWN = 2 * 1000
