@@ -98,7 +98,7 @@ class Display {
 
 		if(C.OCCLUSION_ALPHA > 0){
 			this.ctx.globalAlpha = C.OCCLUSION_ALPHA
-			this.ctx.fillStyle = '#000'
+			this.ctx.fillStyle = C.OCCLUSION_COLOR
 			for(var x = 0; x < this.game.map.data.length; x++){
 				for(var y = 0; y < this.game.map.data[x].length; y++){
 					if(!this.game.localPlayer.view[x] || !this.game.localPlayer.view[x][y]){

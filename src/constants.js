@@ -47,4 +47,5 @@ exports.DYNAMITE_DELAY = 5000
 
 exports.INTERPOLATION_FRAMES = 1
 
-exports.OCCLUSION_ALPHA = .9
+exports.OCCLUSION_ALPHA = 1
+exports.OCCLUSION_COLOR = '#c0e0f0'
