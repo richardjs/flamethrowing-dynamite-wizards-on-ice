@@ -64,7 +64,7 @@ class Display {
 				C.PLAYER_SIZE*1.5,
 				5
 			)
-			var hpPercent = player.hp / C.PLAYER_HP
+			var hpPercent = Math.max(player.hp / C.PLAYER_HP, 0)
 			if(hpPercent > .66){
 				this.ctx.fillStyle = 'green'
 			}else if(hpPercent > .33){
