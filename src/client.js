@@ -43,5 +43,6 @@ time.timer(() => {
 
 	if(game.input.keys.name){
 		rename()
+		game.input.keys.name = false
 	}
 }, 1000/C.GAME_FPS)
