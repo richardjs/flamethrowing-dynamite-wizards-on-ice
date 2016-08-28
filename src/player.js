@@ -156,7 +156,9 @@ class Player {
 					var x = Math.random() * C.PICKUP_SCATTER*2 - C.PICKUP_SCATTER + this.pos.x
 					var y = Math.random() * C.PICKUP_SCATTER*2 - C.PICKUP_SCATTER + this.pos.y
 				}while(
-					game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)]
+					game.map.data[Math.floor(x/C.MAP_TILE_SIZE)] === undefined
+						|| game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)] == undefined
+						|| game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)]
 				)
 				game.entities.push(new Goal({x: x, y: y}))
 			}
