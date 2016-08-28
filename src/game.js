@@ -47,6 +47,18 @@ class Game {
 		for(var entity of this.entities){
 			entity.update(this)
 		}
+		if(!this.client){
+			this.numGoals = 0
+
+			// band-aid so if a goal disappears, we still can win
+			for(var entity of this.entities){
+				if(entity.type === 'goal'){
+					this.numGoals++
+				}else if(entity.type === 'player'){
+					this.numGoals += entity.goals
+				}
+			}
+		}
 	}
 }
 

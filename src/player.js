@@ -190,6 +190,7 @@ class Player {
 
 	die(game){
 		this.dead = true
+		this.goals = 0
 		this.dx = 0
 		this.dy = 0
 		if(!game.client){
