@@ -20,9 +20,7 @@ class Player {
 		this.angle = 0
 
 		this.flameTimer = 0
-		this.dynamiteTimer = 0
-		this.recoverTimer = 0
-		this.fuseTimer = 0
+		this.dynamiteTimer = 0 this.recoverTimer = 0 this.fuseTimer = 0
 		this.accelerationTimer = 0
 
 		this.dead = false
@@ -203,6 +201,7 @@ class Player {
 						|| game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)] == undefined
 						|| game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)]
 				)
+				console.log('dropping')
 				game.entities.push(new Goal({x: x, y: y}))
 			}
 		}
