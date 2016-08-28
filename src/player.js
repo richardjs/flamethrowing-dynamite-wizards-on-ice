@@ -20,6 +20,7 @@ class Player {
 
 		this.flameTimer = 0
 		this.recoverTimer = 0
+		this.fuseTimer = 0
 
 		this.dead = false
 
@@ -113,6 +114,13 @@ class Player {
 		if(this.recoverTimer <= 0 && this.hp < C.PLAYER_HP){
 			this.hp++
 			this.recoverTimer += C.PLAYER_HP_RECOVER_TIME
+		}
+
+		if(this.keys.setFuse){
+			this.fuseTimer += 1000/C.GAME_FPS
+		}else if(this.fuseTimer > 0){
+			this.fuseTimer = 0
+			//TODO throw dynamite
 		}
 	}
 

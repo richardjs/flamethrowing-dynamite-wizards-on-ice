@@ -31,10 +31,21 @@ class Input {
 			)
 		})
 		document.body.addEventListener('mousedown', event => {
-			this.keys.fire = true
+			if(event.button == 0){
+				this.keys.fire = true
+			}else if(event.button === 2){
+				this.keys.setFuse = true
+			}
 		})
 		document.body.addEventListener('mouseup', event => {
-			this.keys.fire = false
+			if(event.button == 0){
+				this.keys.fire = false
+			}else if(event.button === 2){
+				this.keys.setFuse = false
+			}
+		})
+		document.body.addEventListener('contextmenu', event => {
+			event.preventDefault()
 		})
 	}
 }

@@ -148,8 +148,8 @@ class Display {
 				player.pos.y - this.game.localPlayer.pos.y,
 				player.pos.x - this.game.localPlayer.pos.x
 			)
-			var offsetX = 60*Math.cos(angle) - 0*Math.sin(angle);
-			var offsetY = 60*Math.sin(angle) + 0*Math.cos(angle);
+			var offsetX = 60*Math.cos(angle) - 0*Math.sin(angle)
+			var offsetY = 60*Math.sin(angle) + 0*Math.cos(angle)
 			this.ctx.beginPath()
 			this.ctx.arc(
 				this.canvas.width/2 + offsetX,
@@ -158,6 +158,32 @@ class Display {
 			)
 			this.ctx.fill()
 			break
+		}
+
+		// fuse set meter
+		for(var player of this.game.players){
+			if(player.fuseTimer === 0) continue
+
+			var fusePercent = (player.fuseTimer % C.DYNAMITE_FUSE_SELECT_TIME) / C.DYNAMITE_FUSE_SELECT_TIME
+			if(Math.floor(player.fuseTimer / C.DYNAMITE_FUSE_SELECT_TIME) % 2 == 1){
+				fusePercent = 1 - fusePercent
+			}
+			
+			this.ctx.fillStyle = '#aaa'
+			this.ctx.fillRect(
+				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2 + C.PLAYER_SIZE/2 + 20,
+				player.pos.y - C.PLAYER_SIZE/2 - this.game.localPlayer.pos.y + this.canvas.height/2,
+				5,
+				C.PLAYER_SIZE
+			)
+			this.ctx.fillStyle = '#211'
+			this.ctx.fillRect(
+				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2 + C.PLAYER_SIZE/2 + 20,
+				player.pos.y - C.PLAYER_SIZE/2 - this.game.localPlayer.pos.y + this.canvas.height/2 + C.PLAYER_SIZE*fusePercent,
+				5,
+				C.PLAYER_SIZE*(1-fusePercent)
+			)
+
 		}
 
 		this.ctx.globalAlpha = 1
