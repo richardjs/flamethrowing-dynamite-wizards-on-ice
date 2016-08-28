@@ -151,16 +151,13 @@ class Player {
 		this.dx = 0
 		this.dy = 0
 		if(!game.client){
-			console.log('dropping crystals')
 			for(var i = 0; i < this.goals; i++){
 				do{
 					var x = Math.random() * C.PICKUP_SCATTER*2 - C.PICKUP_SCATTER + this.pos.x
 					var y = Math.random() * C.PICKUP_SCATTER*2 - C.PICKUP_SCATTER + this.pos.y
-					console.log(Math.floor(x/C.MAP_TILE_SIZE),Math.floor(y/C.MAP_TILE_SIZE))
 				}while(
 					game.map.data[Math.floor(x/C.MAP_TILE_SIZE)][Math.floor(y/C.MAP_TILE_SIZE)]
 				)
-				console.log(x, y)
 				game.entities.push(new Goal({x: x, y: y}))
 			}
 		}

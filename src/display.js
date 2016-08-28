@@ -55,6 +55,31 @@ class Display {
 		this.ctx.restore()
 
 		for(var player of this.game.players){
+			//health bar
+			this.ctx.globalAlpha = .7
+			this.ctx.fillStyle = '#222'
+			this.ctx.fillRect(
+				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2 - C.PLAYER_SIZE*1.5/2,
+				player.pos.y - C.PLAYER_SIZE/2 - 20 - this.game.localPlayer.pos.y + this.canvas.height/2,
+				C.PLAYER_SIZE*1.5,
+				5
+			)
+			var hpPercent = player.hp / C.PLAYER_HP
+			if(hpPercent > .66){
+				this.ctx.fillStyle = 'green'
+			}else if(hpPercent > .33){
+				this.ctx.fillStyle = 'yellow'
+			}else{
+				this.ctx.fillStyle = 'red'
+			}
+			this.ctx.fillRect(
+				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2 - C.PLAYER_SIZE*1.5/2,
+				player.pos.y - C.PLAYER_SIZE/2 - 19 - this.game.localPlayer.pos.y + this.canvas.height/2,
+				C.PLAYER_SIZE*1.5 * hpPercent,
+				3
+			)
+
+			// name
 			this.ctx.font = '12pt courier'
 			this.ctx.fillStyle = '#777'
 			this.ctx.textAlign = 'center'
@@ -63,6 +88,8 @@ class Display {
 				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2,
 				player.pos.y + C.PLAYER_SIZE/2 + 25 - this.game.localPlayer.pos.y + this.canvas.height/2
 			)
+
+			this.ctx.globalAlpha = 1
 		}
 	}
 }

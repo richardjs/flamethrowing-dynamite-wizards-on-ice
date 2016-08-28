@@ -24,9 +24,16 @@ var sockets = []
 
 function newPlayer(socket){
 	var playerPos = util.centerOfSquare(game.map.findEmptySquare())
+	var name;
+	if(socket.player){
+		name = socket.player.name
+	}
 	socket.player = new Player(socket.id, playerPos)
 	game.entities.push(socket.player)
 	game.players.push(socket.player)
+	if(name){
+		socket.player.name = name
+	}
 }
 
 function newGame(){
