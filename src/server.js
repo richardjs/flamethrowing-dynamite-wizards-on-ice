@@ -49,8 +49,7 @@ io.on('connection', socket => {
 	})
 
 	socket.on('name', name => {
-		console.log('set name ' + name)
-		socket.player.name = name
+		socket.player.name = name.substr(0, 30)
 	})
 
 	socket.on('input', state => {

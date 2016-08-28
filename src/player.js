@@ -23,7 +23,7 @@ class Player {
 
 		this.dead = false
 
-		this.name = 'Unknown'
+		this.name = 'Skater ' + Math.floor(Math.random() * 1000)
 	}
 
 	update(game) {
