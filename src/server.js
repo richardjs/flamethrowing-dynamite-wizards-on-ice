@@ -116,9 +116,11 @@ time.timer(() => {
 		}
 
 		var mapPos = util.pixelToMap(socket.player.pos)
-		if(mapPos.x !== socket.player.lastMapPos.x
-				|| mapPos.y !== socket.player.lastMapPos.y){
-			updateView(socket.player)
+		if(socket.player.lastMapPos){
+			if(mapPos.x !== socket.player.lastMapPos.x
+					|| mapPos.y !== socket.player.lastMapPos.y){
+				updateView(socket.player)
+			}
 		}
 	}
 }, 1000/C.GAME_FPS)
