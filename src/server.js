@@ -103,13 +103,14 @@ time.timer(() => {
 	for(var socket of sockets){
 		if(socket.player.hp <= 0 && !socket.player.dead){
 			socket.player.die(game)
-			setTimeout(() => {
+			setTimeout(function(socket){
 				var name = socket.player.name
+				console.log(socket.player.dead)
 				game.entities.remove(socket.player)
 				game.players.remove(socket.player)
 				newPlayer(socket)
 				socket.player.name = name
-			}, C.RESPAWN)
+			}, C.RESPAWN, socket)
 			continue
 		}
 		if(socket.player.goals === game.numGoals && !game.winner){
