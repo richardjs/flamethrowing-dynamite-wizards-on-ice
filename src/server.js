@@ -65,6 +65,11 @@ function newGame(){
 newGame()
 
 io.on('connection', socket => {
+	if(sockets.length >= C.MAX_PLAYERS){
+		socket.emit('full')
+		socket.disconnect()
+		return;
+	}
 	sockets.push(socket)
 	socket.on('disconnect', () => {
 		console.log('disconnect ' + socket.id)

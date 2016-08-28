@@ -1,5 +1,7 @@
 'use strict'
 
+exports.MAX_PLAYERS = 5
+
 exports.GAME_FPS = 60
 exports.NETWORK_FPS = 60
 

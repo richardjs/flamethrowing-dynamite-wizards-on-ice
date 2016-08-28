@@ -14,6 +14,11 @@ class Network {
 		this.game = game
 		this.socket = io()
 
+		this.socket.on('full', () => {
+			alert('Sorry, the server is currently full.')
+			window.location.reload()
+		})
+
 		this.socket.on('id', id => {
 			this.game.id = id
 		})

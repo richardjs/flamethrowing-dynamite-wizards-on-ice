@@ -11,9 +11,51 @@
 				background: black;
 				display: block;
 			}
+			body, window{
+				background: #002;
+				color: #aac;
+				font-family: arial;
+				max-width: 1000px;
+			}
+			p{
+				font-size: 16pt;
+				margin: 20px;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="instructions">
+		<p>Legends tell that deep in these frozen caverns, crystals lie
+		scattered about the icy halls. Ancient and mysterious, these crystals
+		will grant immense power to the one who can gather them all
+		together.</p>
+		<p>Needless to say, the caverns are the subject of much interest to
+		students at the local arcane university. Whether the rumors are true,
+		or merely the result of upperclassmen pranking the freshman, every new
+		year sees a multitude of apprentice mages descending into the caves.</p>
+		<p>Those that search are known as...</p>
+		<p style="font-size: 200%">
+			<span style="color: #FE642E">Flamethrowing</span>
+			<span style="color: red">Dynamite</span>
+			<span style="color: #707">Wizards</span>
+			<span>on</span>
+			<span style="color: #cef">Ice</span>
+		</p>
+		<p>"Flamethrowing," largely because it's the first spell taught at the
+		academy. "Dynamite" because flamethrowing doesn't always quite cut it.
+		Donning ice skates, these wizards explore the caves and gather up
+		crystals. Since the legends say "the one" who gathers all the crystals,
+		and not "the team," cooperation is infrequently the norm.</p>
+		<p style="font-size: 200%; color: red">Instructions</p>
+		<ul>
+			<li>WASD skates around.</li>
+			<li>Left mouse throws flames.</li>
+			<li>Right mouse throws dynamite (hold button to adjust fuse length).</li>
+			<li>Gather all the crystals to win!</li>
+		</ul>
+
+		<p style="color: red">Press Enter to join!</p>
+		</div>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="build/bundle.js"></script>
 	</body>

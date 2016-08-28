@@ -159,12 +159,12 @@ class Player {
 		ctx.translate(this.pos.x, this.pos.y)
 		ctx.rotate(this.angle)
 
-		ctx.fillStyle = '#ffcccc'
+		ctx.fillStyle = '#ebb'
 		ctx.fillRect(
-			C.PLAYER_SIZE/2 - 3,
-			-C.PLAYER_SIZE/6,
-			6,
-			C.PLAYER_SIZE/3
+			C.PLAYER_SIZE/2 - 4,
+			-C.PLAYER_SIZE/4,
+			8,
+			C.PLAYER_SIZE/2
 		)
 		ctx.fillStyle = 'red'
 		if(this.dead){
