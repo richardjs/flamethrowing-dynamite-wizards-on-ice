@@ -19,7 +19,7 @@ class Goal {
 	}
 
 	render(game, canvas, ctx){
-		ctx.fillStyle = 'green'
+		ctx.fillStyle = '#707'
 		ctx.fillRect(this.pos.x - 5, this.pos.y - 5, 10, 10)
 	}
 }

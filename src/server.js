@@ -51,6 +51,7 @@ io.on('connection', socket => {
 	socket.on('disconnect', () => {
 		console.log('disconnect ' + socket.id)
 		sockets.remove(socket)
+		socket.player.die(game)
 		game.entities.remove(socket.player)
 		game.players.remove(socket.player)
 	})

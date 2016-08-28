@@ -54,9 +54,9 @@ class Display {
 
 		this.ctx.restore()
 
+		this.ctx.globalAlpha = .7
 		for(var player of this.game.players){
 			//health bar
-			this.ctx.globalAlpha = .7
 			this.ctx.fillStyle = '#222'
 			this.ctx.fillRect(
 				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2 - C.PLAYER_SIZE*1.5/2,
@@ -88,9 +88,79 @@ class Display {
 				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2,
 				player.pos.y + C.PLAYER_SIZE/2 + 25 - this.game.localPlayer.pos.y + this.canvas.height/2
 			)
-
-			this.ctx.globalAlpha = 1
 		}
+		
+		// scoreboard
+		var sorted = []
+		for(var player of this.game.players){
+			var i
+			for(i = 0; i < sorted.length; i++){
+				if(player.goals > sorted[i].goals) break
+			}
+			sorted.splice(i, 0, player)
+		}
+		this.ctx.font = '14pt arial'
+		this.ctx.fillStyle = '#777'
+		this.ctx.textAlign = 'right'
+		var y = 20
+		for(var player of sorted){
+			this.ctx.fillText(
+				player.name + ' ' + player.goals,
+				this.canvas.width - 10,
+				y
+			)
+			y += 20
+		}
+
+		var numGoals = 0;
+		var goalAngles = []
+		for(var entity of this.game.entities){
+			if(entity.type !== 'goal') continue
+			numGoals++
+			goalAngles.push(Math.atan2(
+				entity.pos.y - this.game.localPlayer.pos.y,
+				entity.pos.x - this.game.localPlayer.pos.x
+			))
+		}
+		this.ctx.fillStyle = '#707'
+		this.ctx.fillText(
+			'Remaining ' + numGoals,
+			this.canvas.width - 10,
+			y
+		)
+
+		// radar
+		for(var angle of goalAngles){
+			var offsetX = 50*Math.cos(angle) - 0*Math.sin(angle);
+			var offsetY = 50*Math.sin(angle) + 0*Math.cos(angle);
+			this.ctx.beginPath()
+			this.ctx.arc(
+				this.canvas.width/2 + offsetX,
+				this.canvas.height/2 + offsetY,
+				2, 0, Math.PI*2
+			)
+			this.ctx.fill()
+		}
+		for(var player of sorted){
+			if(player === this.game.localPlayer) continue
+			if(player.goals === 0) continue
+			var angle = Math.atan2(
+				player.pos.y - this.game.localPlayer.pos.y,
+				player.pos.x - this.game.localPlayer.pos.x
+			)
+			var offsetX = 60*Math.cos(angle) - 0*Math.sin(angle);
+			var offsetY = 60*Math.sin(angle) + 0*Math.cos(angle);
+			this.ctx.beginPath()
+			this.ctx.arc(
+				this.canvas.width/2 + offsetX,
+				this.canvas.height/2 + offsetY,
+				3, 0, Math.PI*2
+			)
+			this.ctx.fill()
+			break
+		}
+
+		this.ctx.globalAlpha = 1
 	}
 }
 
