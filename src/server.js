@@ -72,9 +72,11 @@ time.timer(() => {
 	for(var socket of sockets){
 		if(socket.player.hp <= 0){
 			socket.player.die(game)
+			var name = socket.player.name
 			game.entities.remove(socket.player)
 			game.players.remove(socket.player)
 			newPlayer(socket)
+			socket.player.name = name
 		}
 		if(socket.player.goals == game.numGoals){
 			newGame()

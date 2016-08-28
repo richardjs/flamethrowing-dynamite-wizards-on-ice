@@ -23,7 +23,7 @@ class Player {
 
 		this.dead = false
 
-		this.name = ''
+		this.name = 'Unknown'
 	}
 
 	update(game) {

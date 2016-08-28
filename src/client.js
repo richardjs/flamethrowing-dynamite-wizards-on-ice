@@ -8,19 +8,17 @@ var game = new Game()
 game.initClient()
 
 function rename(){
-	do{
-		var name = prompt('What is your name, o wizard?')
-		if(name){
-			name = name.trim()
-		}else if(name === null){
-			name = 'The Nameless Skater'
-		}
-	}while(!name.length)
+	var name = prompt('What is your name, o wizard?')
+	if(name && name.length){
+		name = name.trim()
+	}else{
+		name = 'Skater ' + Math.floor(Math.random() * 1000)
+	}
 	localStorage.setItem('name', name)
 	game.network.socket.emit('name', name)
 }
 
-while(!localStorage.getItem('name')){
+if(!localStorage.getItem('name')){
 	rename()
 }
 game.network.socket.emit('name', localStorage.getItem('name'))
