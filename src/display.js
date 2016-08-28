@@ -1,6 +1,7 @@
 'use strict'
 
 var C = require('./constants')
+var util = require('./util')
 
 class Display {
 	constructor(game) {
@@ -49,6 +50,8 @@ class Display {
 		)
 
 		for(var entity of this.game.entities) {
+			var mapPos = util.pixelToMap(entity.pos)
+			if(C.OCCLUSION_ALPHA === 1 && !this.game.localPlayer.view[mapPos.x] || !this.game.localPlayer.view[mapPos.x][mapPos.y]) continue
 			entity.render(this.game, this.canvas, this.ctx)
 		}
 
@@ -56,6 +59,9 @@ class Display {
 
 		this.ctx.globalAlpha = .7
 		for(var player of this.game.players){
+			var mapPos = util.pixelToMap(player.pos)
+			if(C.OCCLUSION_ALPHA === 1 && !this.game.localPlayer.view[mapPos.x] || !this.game.localPlayer.view[mapPos.x][mapPos.y]) continue
+
 			//health bar
 			this.ctx.fillStyle = '#222'
 			this.ctx.fillRect(
@@ -90,13 +96,14 @@ class Display {
 			)
 		}
 
-		this.ctx.save()
-		this.ctx.translate(
-			Math.floor(this.canvas.width/2 - this.game.localPlayer.pos.x),
-			Math.floor(this.canvas.height/2 - this.game.localPlayer.pos.y)
-		)
-
+		// occlusion
 		if(C.OCCLUSION_ALPHA > 0){
+			this.ctx.save()
+			this.ctx.translate(
+				Math.floor(this.canvas.width/2 - this.game.localPlayer.pos.x),
+				Math.floor(this.canvas.height/2 - this.game.localPlayer.pos.y)
+			)
+
 			this.ctx.globalAlpha = C.OCCLUSION_ALPHA
 			this.ctx.fillStyle = C.OCCLUSION_COLOR
 			for(var x = 0; x < this.game.map.data.length; x++){
@@ -113,9 +120,15 @@ class Display {
 					}
 				}
 			}
-		}
 
-		this.ctx.restore()
+			for(var entity of this.game.entities) {
+				if(entity.type === 'goal'){
+					entity.render(this.game, this.canvas, this.ctx)
+				}
+			}
+
+			this.ctx.restore()
+		}
 		
 		// scoreboard
 		var sorted = []
