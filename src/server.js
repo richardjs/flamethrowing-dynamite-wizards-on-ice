@@ -64,7 +64,7 @@ io.on('connection', socket => {
 		socket.seqnum = state.seqnum
 		socket.player.keys = state.keys
 		socket.player.angle = state.angle
-		socket.player.mouse = state.mouse
+		socket.player.mouse = state.mouse || {x: 0, y: 0}
 	})
 
 	socket.id = UUID.v4()
