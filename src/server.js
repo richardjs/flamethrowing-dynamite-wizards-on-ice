@@ -48,6 +48,11 @@ io.on('connection', socket => {
 		game.players.remove(socket.player)
 	})
 
+	socket.on('name', name => {
+		console.log('set name ' + name)
+		socket.player.name = name
+	})
+
 	socket.on('input', state => {
 		socket.seqnum = state.seqnum
 		socket.player.keys = state.keys

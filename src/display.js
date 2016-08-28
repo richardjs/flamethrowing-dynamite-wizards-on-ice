@@ -40,12 +40,30 @@ class Display {
 				}
 			}
 		}
+		this.ctx.restore()
+
+		this.ctx.save()
+		this.ctx.translate(
+			this.canvas.width/2 - this.game.localPlayer.pos.x,
+			this.canvas.height/2 - this.game.localPlayer.pos.y
+		)
 
 		for(var entity of this.game.entities) {
 			entity.render(this.game, this.canvas, this.ctx)
 		}
 
 		this.ctx.restore()
+
+		for(var player of this.game.players){
+			this.ctx.font = '12pt courier'
+			this.ctx.fillStyle = '#777'
+			this.ctx.textAlign = 'center'
+			this.ctx.fillText(
+				player.name,
+				player.pos.x - this.game.localPlayer.pos.x + this.canvas.width/2,
+				player.pos.y + C.PLAYER_SIZE/2 + 25 - this.game.localPlayer.pos.y + this.canvas.height/2
+			)
+		}
 	}
 }
 

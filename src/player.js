@@ -22,6 +22,8 @@ class Player {
 		this.recoverTimer = 0
 
 		this.dead = false
+
+		this.name = ''
 	}
 
 	update(game) {
@@ -136,6 +138,7 @@ class Player {
 			C.PLAYER_SIZE,
 			C.PLAYER_SIZE
 		)
+
 		ctx.restore()
 	}
 

@@ -4,7 +4,8 @@ var INPUT_MAP = {
 	87: 'up',
 	83: 'down',
 	65: 'left',
-	68: 'right'
+	68: 'right',
+	78: 'name'
 }
 
 class Input {
