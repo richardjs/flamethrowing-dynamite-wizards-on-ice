@@ -51,7 +51,7 @@ class Display {
 
 		for(var entity of this.game.entities) {
 			var mapPos = util.pixelToMap(entity.pos)
-			if(C.OCCLUSION_ALPHA === 1 && !this.game.localPlayer.view[mapPos.x] || !this.game.localPlayer.view[mapPos.x][mapPos.y]) continue
+			if(C.OCCLUSION_ALPHA === 1 && (!this.game.localPlayer.view[mapPos.x] || !this.game.localPlayer.view[mapPos.x][mapPos.y])) continue
 			entity.render(this.game, this.canvas, this.ctx)
 		}
 
@@ -60,7 +60,7 @@ class Display {
 		this.ctx.globalAlpha = .7
 		for(var player of this.game.players){
 			var mapPos = util.pixelToMap(player.pos)
-			if(C.OCCLUSION_ALPHA === 1 && !this.game.localPlayer.view[mapPos.x] || !this.game.localPlayer.view[mapPos.x][mapPos.y]) continue
+			if(C.OCCLUSION_ALPHA === 1 && (!this.game.localPlayer.view[mapPos.x] || !this.game.localPlayer.view[mapPos.x][mapPos.y])) continue
 
 			//health bar
 			this.ctx.fillStyle = '#222'

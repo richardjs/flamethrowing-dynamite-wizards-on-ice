@@ -121,6 +121,10 @@ time.timer(() => {
 			break
 		}
 
+		if(C.OCCLUSION_ALPHA === 0){
+			socket.player.view = []
+			continue
+		}
 		var mapPos = util.pixelToMap(socket.player.pos)
 		if(socket.player.lastMapPos){
 			if(mapPos.x !== socket.player.lastMapPos.x
