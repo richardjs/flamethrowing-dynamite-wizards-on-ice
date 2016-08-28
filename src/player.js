@@ -41,7 +41,9 @@ class Player {
 		var mapTop
 		var mapBottom
 
-		this.accelerationTimer -= 1000/C.GAME_FPS
+		if(this.accelerationTimer > 0 || this.keys.up || this.keys.down || this.keys.right || this.keys.left){
+			this.accelerationTimer -= 1000/C.GAME_FPS
+		}
 		if(this.accelerationTimer <= 0){
 			if(this.keys.up){
 				this.dy -= C.PLAYER_ACCELERATION
