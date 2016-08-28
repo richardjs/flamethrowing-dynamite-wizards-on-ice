@@ -89,6 +89,33 @@ class Display {
 				player.pos.y + C.PLAYER_SIZE/2 + 25 - this.game.localPlayer.pos.y + this.canvas.height/2
 			)
 		}
+
+		this.ctx.save()
+		this.ctx.translate(
+			Math.floor(this.canvas.width/2 - this.game.localPlayer.pos.x),
+			Math.floor(this.canvas.height/2 - this.game.localPlayer.pos.y)
+		)
+
+		if(C.OCCLUSION_ALPHA > 0){
+			this.ctx.globalAlpha = C.OCCLUSION_ALPHA
+			this.ctx.fillStyle = '#000'
+			for(var x = 0; x < this.game.map.data.length; x++){
+				for(var y = 0; y < this.game.map.data[x].length; y++){
+					if(!this.game.localPlayer.view[x] || !this.game.localPlayer.view[x][y]){
+						if(!this.game.map.data[x][y]){
+							this.ctx.fillRect(
+								x*C.MAP_TILE_SIZE,
+								y*C.MAP_TILE_SIZE,
+								C.MAP_TILE_SIZE,
+								C.MAP_TILE_SIZE
+							)
+						}
+					}
+				}
+			}
+		}
+
+		this.ctx.restore()
 		
 		// scoreboard
 		var sorted = []

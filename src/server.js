@@ -2,6 +2,7 @@
 
 var express = require('express')
 var http = require('http')
+var ROT = require('rot-js')
 var UUID = require('uuid')
 
 var C = require('./constants.js')
@@ -34,6 +35,23 @@ function newPlayer(socket){
 	if(name){
 		socket.player.name = name
 	}
+	updateView(socket.player)
+}
+
+function updateView(player){
+	var fov = new ROT.FOV.PreciseShadowcasting((x, y) => {
+		return !game.map.data[x] || !game.map.data[x][y]
+	})
+	player.view = []
+
+	var mapPos = util.pixelToMap(player.pos)
+
+	fov.compute(mapPos.x, mapPos.y, 10, (x, y, r, visibility) => {
+		if(!player.view[x]){
+			player.view[x] = []
+		}
+		player.view[x][y] = true
+	});
 }
 
 function newGame(){
@@ -41,7 +59,7 @@ function newGame(){
 	game.initServer()
 	for(var socket of sockets){
 		newPlayer(socket)
-			socket.emit('mapData', game.map.data)
+		socket.emit('mapData', game.map.data)
 	}
 }
 newGame()
@@ -76,7 +94,12 @@ io.on('connection', socket => {
 })
 
 time.timer(() => {
+	for(var socket of sockets){
+		socket.player.lastMapPos = util.pixelToMap(socket.player.pos)
+	}
+
 	game.update()
+
 	for(var socket of sockets){
 		if(socket.player.hp <= 0){
 			socket.player.die(game)
@@ -85,9 +108,17 @@ time.timer(() => {
 			game.players.remove(socket.player)
 			newPlayer(socket)
 			socket.player.name = name
+			continue
 		}
 		if(socket.player.goals == game.numGoals){
 			newGame()
+			continue
+		}
+
+		var mapPos = util.pixelToMap(socket.player.pos)
+		if(mapPos.x !== socket.player.lastMapPos.x
+				|| mapPos.y !== socket.player.lastMapPos.y){
+			updateView(socket.player)
 		}
 	}
 }, 1000/C.GAME_FPS)
