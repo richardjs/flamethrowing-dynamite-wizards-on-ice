@@ -110,9 +110,13 @@ time.timer(() => {
 			socket.player.name = name
 			continue
 		}
-		if(socket.player.goals == game.numGoals){
-			newGame()
-			continue
+		if(socket.player.goals === game.numGoals && !game.winner){
+			for(var s of sockets){
+				s.emit('winner', socket.player.name)
+			}
+			game.winner = socket.player.name
+			setTimeout(newGame, 5*1000)
+			break
 		}
 
 		var mapPos = util.pixelToMap(socket.player.pos)

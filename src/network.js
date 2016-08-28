@@ -22,6 +22,13 @@ class Network {
 			this.game.map.data = mapData
 		})
 
+		this.socket.on('winner', name => {
+			this.game.winner = name
+			setTimeout(() => {
+				this.game.winner = ''
+			}, 7*1000)
+		})
+
 		this.socket.on('update', state => {
 			this.game.entities = []
 			this.game.players = []

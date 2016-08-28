@@ -227,6 +227,13 @@ class Display {
 		}
 
 		this.ctx.globalAlpha = 1
+
+		if(this.game.winner && this.game.winner.length){
+			this.ctx.fillStyle = 'red'
+			this.ctx.textAlign = 'center'
+			this.ctx.font = '30pt arial'
+			this.ctx.fillText(this.game.winner + ' wins!', this.canvas.width/2, this.canvas.height/3)
+		}
 	}
 }
 
