@@ -23,6 +23,7 @@ class Player {
 		this.dynamiteTimer = 0
 		this.recoverTimer = 0
 		this.fuseTimer = 0
+		this.accelerationTimer = 0
 
 		this.dead = false
 
@@ -40,17 +41,23 @@ class Player {
 		var mapTop
 		var mapBottom
 
-		if(this.keys.up){
-			this.dy -= C.PLAYER_ACCELERATION
-		}
-		if(this.keys.down){
-			this.dy += C.PLAYER_ACCELERATION
-		}
-		if(this.keys.left){
-			this.dx -= C.PLAYER_ACCELERATION
-		}
-		if(this.keys.right){
-			this.dx += C.PLAYER_ACCELERATION
+		this.accelerationTimer -= 1000/C.GAME_FPS
+		if(this.accelerationTimer <= 0){
+			if(this.keys.up){
+				this.dy -= C.PLAYER_ACCELERATION
+			}
+			if(this.keys.down){
+				this.dy += C.PLAYER_ACCELERATION
+			}
+			if(this.keys.left){
+				this.dx -= C.PLAYER_ACCELERATION
+			}
+			if(this.keys.right){
+				this.dx += C.PLAYER_ACCELERATION
+			}
+			if(this.accelerationTimer < -C.PLAYER_ACCELERATION_ON){
+				this.accelerationTimer += C.PLAYER_ACCELERATION_ON + C.PLAYER_ACCELERATION_OFF
+			}
 		}
 	
 		if(this.flameTimer > 0){
