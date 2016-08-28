@@ -18,7 +18,7 @@ class Display {
 	}
 
 	render(){
-		this.ctx.fillStyle = 'black'
+		this.ctx.fillStyle = '#323242'
 		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
 		this.ctx.save()
@@ -29,7 +29,7 @@ class Display {
 
 		for(var x = 0; x < this.game.map.data.length; x++){
 			for(var y = 0; y < this.game.map.data[x].length; y++){
-				this.ctx.fillStyle = 'white'
+				this.ctx.fillStyle = '#cceeff'
 				if(!this.game.map.data[x][y]){
 					this.ctx.fillRect(
 						x*C.MAP_TILE_SIZE,

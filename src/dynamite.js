@@ -97,6 +97,9 @@ class Dynamite {
 	render(game, canvas, ctx) {
 		var red = Math.floor((1 - this.fuseLength/this.originalFuse) * 255)
 		ctx.fillStyle = 'rgb('+red+',0,0)'
+		if(this.moveTimer <=0 && this.fuseLength % 500 < 100){
+			ctx.fillStyle = 'red'
+		}
 		ctx.fillRect(
 			this.pos.x - C.DYNAMITE_SIZE/2,
 			this.pos.y - C.DYNAMITE_SIZE/2,
