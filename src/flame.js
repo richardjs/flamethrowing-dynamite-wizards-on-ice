@@ -84,16 +84,19 @@ class Flame {
 	}
 
 	render(game, canvas, ctx) {
+		var size
 		if(this.shooterID === 'dynamite'){
 			ctx.fillStyle = 'red'
+			size = C.DYNAMITE_FLAMES_SIZE
 		}else{
 			ctx.fillStyle = '#FE642E'
+			size = C.FLAME_SIZE
 		}
 		ctx.fillRect(
-			this.pos.x - C.FLAME_SIZE/2,
-			this.pos.y - C.FLAME_SIZE/2,
-			C.FLAME_SIZE,
-			C.FLAME_SIZE
+			this.pos.x - size/2,
+			this.pos.y - size/2,
+			size,
+			size
 		)
 	}
 }
