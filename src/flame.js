@@ -3,7 +3,7 @@
 var C = require('./constants.js')
 
 class Flame {
-	constructor(shooterID, pos, angle) {
+	constructor(shooterID, pos, angle, timeMod) {
 		this.shooterID = shooterID
 		this.type = 'flame'
 		if(pos){
@@ -17,6 +17,11 @@ class Flame {
 		this.dx = Math.cos(angle) * speed
 		this.dy = Math.sin(angle) * speed
 		this.ttl = C.FLAME_TTL
+		if(timeMod){
+			this.ttl *= timeMod
+		}
+
+		this.collideTimer = 0
 	}
 
 	update(game) {
@@ -60,15 +65,21 @@ class Flame {
 			this.dx *= -1
 		}
 
-		for(var player of game.players){
-			if(player.id === this.shooterID){
-				continue
+		if(this.collideTimer > 0){
+			this.collideTimer -= 1000/C.GAME_FPS
+		}
+		if(this.collideTimer <= 0){
+			for(var player of game.players){
+				if(player.id === this.shooterID){
+					continue
+				}
+				if(Math.abs(player.pos.x - this.pos.x) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2
+						&& Math.abs(player.pos.y - this.pos.y) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2){
+					player.hit()
+					game.entities.remove(this)
+				}
 			}
-			if(Math.abs(player.pos.x - this.pos.x) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2
-					&& Math.abs(player.pos.y - this.pos.y) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2){
-				player.hit()
-				game.entities.remove(this)
-			}
+			this.collideTimer = C.FLAME_COLLIDE_TIMER
 		}
 	}
 

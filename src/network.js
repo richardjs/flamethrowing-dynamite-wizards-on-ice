@@ -1,6 +1,7 @@
 'use strict'
 
 var C = require('./constants.js')
+var Dynamite = require('./dynamite.js')
 var Flame = require('./flame.js')
 var Goal = require('./goal.js')
 var Player = require('./player.js')
@@ -36,6 +37,9 @@ class Network {
 						break
 					case 'flame':
 						entity = new Flame()
+						break
+					case 'dynamite':
+						entity = new Dynamite()
 						break
 				}
 				for(var property in data){

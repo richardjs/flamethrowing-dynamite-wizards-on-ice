@@ -1,6 +1,7 @@
 'use strict'
 
 var C = require('./constants.js')
+var Dynamite = require('./dynamite.js')
 var Flame = require('./flame.js')
 var Goal = require('./goal.js')
 
@@ -119,8 +120,21 @@ class Player {
 		if(this.keys.setFuse){
 			this.fuseTimer += 1000/C.GAME_FPS
 		}else if(this.fuseTimer > 0){
+			var fusePercent = (this.fuseTimer % C.DYNAMITE_FUSE_SELECT_TIME) / C.DYNAMITE_FUSE_SELECT_TIME
+			if(Math.floor(this.fuseTimer / C.DYNAMITE_FUSE_SELECT_TIME) % 2 == 1){
+				fusePercent = 1 - fusePercent
+			}
 			this.fuseTimer = 0
-			//TODO throw dynamite
+
+			var fuseLength = (1-fusePercent)*(C.DYNAMITE_MAX_FUSE - C.DYNAMITE_MIN_FUSE) + C.DYNAMITE_MIN_FUSE
+			game.entities.push(new Dynamite(
+				this.id,
+				this.pos, {
+					x: this.mouse.x + this.pos.x,
+					y: this.mouse.y + this.pos.y,
+				},
+				fuseLength
+			))
 		}
 	}
 

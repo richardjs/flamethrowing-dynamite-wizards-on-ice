@@ -15,6 +15,7 @@ class Input {
 		this.angle = 0
 		this.queue = []
 		this.seqnum = 0
+		this.mouse = {x: 0, y: 0}
 
 		document.body.addEventListener('keydown', event => {
 			if(!INPUT_MAP[event.which]) return
@@ -29,6 +30,10 @@ class Input {
 				event.pageY - window.innerHeight/2,
 				event.pageX - window.innerWidth/2
 			)
+			this.mouse = {
+				x: event.pageX - window.innerWidth/2,
+				y: event.pageY - window.innerHeight/2
+			}
 		})
 		document.body.addEventListener('mousedown', event => {
 			if(event.button == 0){

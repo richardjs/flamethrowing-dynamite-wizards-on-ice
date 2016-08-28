@@ -30,7 +30,8 @@ time.timer(() => {
 	var inputState = {
 		seqnum: game.input.seqnum++,
 		keys: game.input.keys,
-		angle: game.input.angle
+		angle: game.input.angle,
+		mouse: game.input.mouse
 	}
 	game.input.queue.push(inputState)
 	game.localPlayer.keys = inputState.keys
