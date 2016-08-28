@@ -20,6 +20,7 @@ class Player {
 		this.angle = 0
 
 		this.flameTimer = 0
+		this.dynamiteTimer = 0
 		this.recoverTimer = 0
 		this.fuseTimer = 0
 
@@ -117,9 +118,15 @@ class Player {
 			this.recoverTimer += C.PLAYER_HP_RECOVER_TIME
 		}
 
+		if(this.dynamiteTimer > 0 ){
+			this.dynamiteTimer -= 1000/C.GAME_FPS
+			return
+		}
+
 		if(this.keys.setFuse){
 			this.fuseTimer += 1000/C.GAME_FPS
 		}else if(this.fuseTimer > 0){
+			this.dynamiteTimer = C.DYNAMITE_DELAY
 			var fusePercent = (this.fuseTimer % C.DYNAMITE_FUSE_SELECT_TIME) / C.DYNAMITE_FUSE_SELECT_TIME
 			if(Math.floor(this.fuseTimer / C.DYNAMITE_FUSE_SELECT_TIME) % 2 == 1){
 				fusePercent = 1 - fusePercent
@@ -164,8 +171,12 @@ class Player {
 		ctx.restore()
 	}
 
-	hit() {
-		this.hp--
+	hit(hitter) {
+		if(hitter.shooterID === 'dynamite'){
+			this.hp -= C.DYNAMITE_DAMAGE
+		}else{
+			this.hp--
+		}
 	}
 
 	die(game){

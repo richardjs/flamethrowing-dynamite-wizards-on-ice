@@ -90,7 +90,7 @@ class Dynamite {
 	explode(game) {
 		game.entities.remove(this)
 		for(var i = 0; i < C.DYNAMITE_FLAMES; i++){
-			game.entities.push(new Flame(null, this.pos, Math.random()*2*Math.PI, C.DYNAMITE_FLAMES_TIME_FACTOR))
+			game.entities.push(new Flame('dynamite', this.pos, Math.random()*2*Math.PI, C.DYNAMITE_FLAMES_TIME_FACTOR))
 		}
 	}
 

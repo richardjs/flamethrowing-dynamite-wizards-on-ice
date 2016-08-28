@@ -75,7 +75,7 @@ class Flame {
 				}
 				if(Math.abs(player.pos.x - this.pos.x) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2
 						&& Math.abs(player.pos.y - this.pos.y) < (C.PLAYER_SIZE + C.FLAME_SIZE)/2){
-					player.hit()
+					player.hit(this)
 					game.entities.remove(this)
 				}
 			}
@@ -84,7 +84,11 @@ class Flame {
 	}
 
 	render(game, canvas, ctx) {
-		ctx.fillStyle = '#FE642E'
+		if(this.shooterID === 'dynamite'){
+			ctx.fillStyle = 'red'
+		}else{
+			ctx.fillStyle = '#FE642E'
+		}
 		ctx.fillRect(
 			this.pos.x - C.FLAME_SIZE/2,
 			this.pos.y - C.FLAME_SIZE/2,
