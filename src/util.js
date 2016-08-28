@@ -9,6 +9,13 @@ exports.centerOfSquare = function(squarePos){
 	}
 }
 
+exports.pixelToMap = function(pos){
+	return {
+		x: Math.floor(pos.x / C.MAP_TILE_SIZE),
+		y: Math.floor(pos.y / C.MAP_TILE_SIZE)
+	}
+}
+
 Array.prototype.remove = function(o){
 	this.splice(this.indexOf(o), 1)
 }
